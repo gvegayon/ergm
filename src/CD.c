@@ -28,7 +28,7 @@ void CD_wrapper(int *nedges,
 		  int *nterms, char **funnames,
 		  char **sonames, 
 		  char **MHProposaltype, char **MHProposalpackage,
-		double *inputs, double *theta0, int *samplesize, int *CDparams,
+		double *inputs, int *iinputs, double *theta0, int *samplesize, int *CDparams,
 		  double *sample,
 		  int *fVerbose, 
 		  int *attribs, int *maxout, int *maxin, int *minout,
@@ -48,7 +48,7 @@ void CD_wrapper(int *nedges,
   
   directed_flag = *dflag;
 
-  m=ModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=ModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
 
   /* Form the network */
   nwp=NetworkInitialize((Vertex*)tails, (Vertex*)heads, nedges[0], 
@@ -56,7 +56,7 @@ void CD_wrapper(int *nedges,
   
   MHp=MHProposalInitialize(
 	  *MHProposaltype, *MHProposalpackage,
-	  inputs,
+	  inputs, iinputs,
 	  *fVerbose,
 	  nwp, attribs, maxout, maxin, minout, minin,
 	  *condAllDegExact, *attriblength);

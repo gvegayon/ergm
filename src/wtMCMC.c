@@ -28,7 +28,7 @@ void WtMCMC_wrapper(int *nedges,
 		    int *nterms, char **funnames,
 		    char **sonames, 
 		    char **MHProposaltype, char **MHProposalpackage,
-		    double *inputs, double *theta0, int *samplesize, 
+		    double *inputs, int *iinputs, double *theta0, int *samplesize, 
 		    double *sample, int *burnin, int *interval,  
 		    int *newnetworktails, 
 		    int *newnetworkheads, 
@@ -51,7 +51,7 @@ void WtMCMC_wrapper(int *nedges,
   
   directed_flag = *dflag;
 
-  m=WtModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=WtModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
 
   /* Form the network */
   nwp=WtNetworkInitialize((Vertex*)tails, (Vertex*)heads, weights, nedges[0], 
@@ -59,7 +59,7 @@ void WtMCMC_wrapper(int *nedges,
 
   MHp=WtMHProposalInitialize(
 	    *MHProposaltype, *MHProposalpackage,
-	    inputs,
+	    inputs, iinputs,
 	    *fVerbose,
 	    nwp);
 

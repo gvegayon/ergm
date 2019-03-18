@@ -162,6 +162,10 @@ updatemodel.ErgmTerm <- function(model, outlist) {
     outlist$inputs <- c(ifelse(is.null(tmp), 0, tmp),
                         length(outlist$coef.names), 
                         length(outlist$inputs), outlist$inputs)
+    tmp <- attr(outlist$iinputs, "ParamsBeforeCov")
+    outlist$iinputs <- c(ifelse(is.null(tmp), 0, tmp),
+                        length(outlist$coef.names), 
+                        length(outlist$iinputs), outlist$iinputs)
     model$minval <- c(model$minval,
                       rep(NVL(outlist$minval, -Inf),
                           length.out=length(outlist$coef.names)))
@@ -184,6 +188,7 @@ c.ergm_model <- function(...){
     if(is.null(m)) next
     for(name in c("coef.names",
                   "inputs",
+                  "iinputs",
                   "minval",
                   "maxval",
                   "duration",

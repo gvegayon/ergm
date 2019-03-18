@@ -28,7 +28,7 @@ void MCMC_wrapper(int *nedges,
 		  int *nterms, char **funnames,
 		  char **sonames, 
 		  char **MHProposaltype, char **MHProposalpackage,
-		  double *inputs, double *theta0, int *samplesize, 
+		  double *inputs, int *iinputs, double *theta0, int *samplesize, 
 		  double *sample, int *burnin, int *interval,  
 		  int *newnetworktails, 
 		  int *newnetworkheads, 
@@ -52,7 +52,7 @@ void MCMC_wrapper(int *nedges,
   
   directed_flag = *dflag;
 
-  m=ModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=ModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
 
   /* Form the network */
   nwp=NetworkInitialize((Vertex*)tails, (Vertex*)heads, nedges[0], 
@@ -60,7 +60,7 @@ void MCMC_wrapper(int *nedges,
   
   MHp=MHProposalInitialize(
 	  *MHProposaltype, *MHProposalpackage,
-	  inputs,
+	  inputs, iinputs,
 	  *fVerbose,
 	  nwp, attribs, maxout, maxin, minout, minin,
 	  *condAllDegExact, *attriblength);
@@ -300,7 +300,7 @@ void MCMCPhase12 (int *tails, int *heads, int *dnedges,
 		  int *nterms, char **funnames,
 		  char **sonames, 
 		  char **MHProposaltype, char **MHProposalpackage,
-		  double *inputs, 
+		  double *inputs, int *iinputs,
 		  double *theta0, int *samplesize,
 		  double *gain, double *meanstats, int *phase1, int *nsub,
 		  double *sample, int *burnin, int *interval,  
@@ -331,7 +331,7 @@ void MCMCPhase12 (int *tails, int *heads, int *dnedges,
   
   directed_flag = *dflag;
 
-  m=ModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=ModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
 
   /* Form the missing network */
   nwp=NetworkInitialize((Vertex*)tails, (Vertex*)heads, n_edges,
@@ -340,7 +340,7 @@ void MCMCPhase12 (int *tails, int *heads, int *dnedges,
 
   MHp=MHProposalInitialize(
 	  *MHProposaltype, *MHProposalpackage,
-	  inputs,
+	  inputs, iinputs,
 	  *fVerbose,
 	  nwp, attribs, maxout, maxin, minout, minin,
 	  *condAllDegExact, *attriblength);

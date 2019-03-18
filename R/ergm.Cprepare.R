@@ -113,8 +113,9 @@ ergm_Clist.pending_update_network <- ergm_Clist.network
 #' @return 
 #' \item{nterms}{ the number of model terms }
 #' \item{nstats}{ the total number of change statistics for all model terms }
-#' \item{inputs}{ the concatenated vector of 'input's from each model term as returned by
+#' \item{inputs}{ the concatenated vector of `input`s from each model term as returned by
 #' `InitErgmTerm.X` or `InitErgm.X` }
+#' \item{Rinputs}{ a `list` with an element for each model term with a reference to its `Rinputs` argument}
 #' \item{fnamestring}{ the concatenated string of model term names }
 #' \item{snamestring}{ the concatenated string of package names that contain the C function 'd_fname'; default="ergm" for each fname in fnamestring }
 #' @export
@@ -127,6 +128,7 @@ ergm_Clist.ergm_model <- function(object, ...){
   Clist$fnamestring<-""
   Clist$snamestring<-""
   Clist$inputs<-numeric(0)
+  Clist$iinputs<-integer(0)
   if (Clist$nterms>0) {
     for(i in 1:Clist$nterms) {
       term_i <- mo[[i]]
@@ -139,6 +141,7 @@ ergm_Clist.ergm_model <- function(object, ...){
                                    term_i$pkgname
                                  } else stop("ERGM term specifying C function `", term_i$name,"' is missing C library or package name.") )
       Clist$inputs <- c(Clist$inputs, term_i$inputs)
+      Clist$iinputs <- c(Clist$iinputs, term_i$iinputs)
       Clist$nstats <- Clist$nstats + term_i$inputs[2]
     }
   }

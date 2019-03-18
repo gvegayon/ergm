@@ -61,7 +61,7 @@ MCMCStatus Godfather(Edge n_changes, Vertex *tails, Vertex *heads, int *weights,
 *****************/
 void Godfather_wrapper(int *n_edges, int *tails, int *heads,
 		       int *n_nodes, int *dflag, int *bipartite, 
-		       int *nterms, char **funnames, char **sonames, double *inputs,
+		       int *nterms, char **funnames, char **sonames, double *inputs, int *iinputs,
 		       int *total_changes, int *changetails, int *changeheads, int *changeweights,
 		       double *changestats, 
 		       int *maxedges,
@@ -78,7 +78,7 @@ void Godfather_wrapper(int *n_edges, int *tails, int *heads,
 
   GetRNGstate();  /* R function enabling uniform RNG */
 
-  m=ModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=ModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
 
   /* Form the network */
   nwp=NetworkInitialize((Vertex*)tails, (Vertex*)heads, n_edges[0], 

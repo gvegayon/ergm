@@ -22,7 +22,7 @@
 void network_stats_wrapper(int *tails, int *heads, int *timings, int *time, int *lasttoggle, int *dnedges, 
 			   int *dn, int *dflag,  int *bipartite,
 			   int *nterms, char **funnames,
-			   char **sonames, double *inputs,  double *stats)
+			   char **sonames, double *inputs, int *iinputs, double *stats)
 {
   int directed_flag;
   Vertex n_nodes;
@@ -41,7 +41,7 @@ void network_stats_wrapper(int *tails, int *heads, int *timings, int *time, int 
 
   GetRNGstate();  /* R function enabling uniform RNG */
 
-  m=ModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=ModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
   nwp=NetworkInitialize(NULL, NULL, 0,
                           n_nodes, directed_flag, bip, *timings?1:0, *timings?*time:0, *timings?lasttoggle:NULL);
 

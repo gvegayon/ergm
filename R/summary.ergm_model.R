@@ -70,6 +70,7 @@ summary.ergm_model <- function(object, nw=NULL, response=NULL,...){
             as.integer(Clist$nterms), 
             as.character(Clist$fnamestring), as.character(Clist$snamestring), 
             as.double(Clist$inputs),
+            as.integer(Clist$iinputs),
             gs = as.double(gs),
             PACKAGE="ergm"
             )$gs
@@ -82,6 +83,7 @@ summary.ergm_model <- function(object, nw=NULL, response=NULL,...){
             as.integer(Clist$nterms), 
             as.character(Clist$fnamestring), as.character(Clist$snamestring), 
             as.double(Clist$inputs),
+            as.integer(Clist$iinputs),
             gs = as.double(gs),
             PACKAGE="ergm"
             )$gs

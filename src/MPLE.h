@@ -18,7 +18,7 @@
 void MPLE_wrapper(int *tails, int *heads, int *dnedges,
 		  double *wl,
 		  int *dn, int *dflag, int *bipartite, int *nterms, 
-		  char **funnames, char **sonames, double *inputs,  
+		  char **funnames, char **sonames, double *inputs, int *iinputs,  
 		  int *responsevec, double *covmat,
 		  int *weightsvector,
 		  int *maxDyads, int *maxDyadTypes);

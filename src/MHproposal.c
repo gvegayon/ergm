@@ -18,6 +18,7 @@
 MHProposal *MHProposalInitialize(
 	     char *MHProposaltype, char *MHProposalpackage,
 	     double *inputs,
+	     int *iinputs,
 	     int fVerbose,
 	     Network *nwp,
 	     int *attribs, int *maxout, int *maxin, 
@@ -53,6 +54,7 @@ MHProposal *MHProposalInitialize(
   }
 
   MHp->inputs=inputs;
+  MHp->iinputs=iinputs;
 
   MHp->bd=DegreeBoundInitialize(attribs, maxout, maxin, minout, minin,
 			       condAllDegExact, attriblength, nwp);

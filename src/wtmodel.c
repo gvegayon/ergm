@@ -33,13 +33,14 @@ void WtModelDestroy(WtModel *m)
  Allocate and initialize the WtModelTerm structures, each of which contains
  all necessary information about how to compute one term in the model.
 *****************/
-WtModel* WtModelInitialize (char *fnames, char *sonames, double **inputsp,
+WtModel* WtModelInitialize (char *fnames, char *sonames, double **inputsp, int **iinputsp,
 			int n_terms) {
-  int i, j, k, l, offset;
+  int i, j, k, l;
   WtModelTerm *thisterm;
   char *fn,*sn;
   WtModel *m;
   double *inputs=*inputsp;
+  int *iinputs=*iinputsp;
   
   m = (WtModel *) Calloc(1, WtModel);
   m->n_terms = n_terms;
@@ -100,10 +101,12 @@ WtModel* WtModelInitialize (char *fnames, char *sonames, double **inputsp,
 
       /*  Now process the values in model$option[[optionnumber]]$inputs;
           See comments in InitErgm.r for details.    */
-      offset = (int) *inputs++;  /* Set offset for attr vector */
+      unsigned int offset = (int) *inputs++;  /* Set offset for attr vector */
+      unsigned int ioffset = (int) *iinputs++;  /* Set offset for attr vector */
 /*      Rprintf("offsets: %f %f %f %f %f\n",inputs[0],inputs[1],inputs[2], */
 /*		         inputs[3],inputs[4],inputs[5]); */
       thisterm->nstats = (int) *inputs++; /* Set # of statistics returned */
+      /* thisterm->nstats = (int) * */iinputs++; /* Set # of statistics returned */
 /*      Rprintf("l %d offset %d thisterm %d\n",l,offset,thisterm->nstats); */
       if (thisterm->nstats <= 0)
 	{ /* Must return at least one statistic */
@@ -122,11 +125,15 @@ WtModel* WtModelInitialize (char *fnames, char *sonames, double **inputsp,
       thisterm->statcache = (double *) Calloc(thisterm->nstats, double);
 
       thisterm->ninputparams = (int) *inputs++; /* Set # of inputs */
+      thisterm->niinputparams = (int) *iinputs++; /* Set # of inputs */
       /* thisterm->inputparams is a ptr to inputs */
       thisterm->inputparams = (thisterm->ninputparams ==0) ? 0 : inputs; 
+      thisterm->iinputparams = (thisterm->niinputparams ==0) ? 0 : iinputs; 
       
       thisterm->attrib = inputs + offset; /* Ptr to attributes */
+      thisterm->iattrib = iinputs + ioffset; /* Ptr to attributes */
       inputs += thisterm->ninputparams;  /* Skip to next model option */
+      iinputs += thisterm->niinputparams;  /* Skip to next model option */
 
       /*  The lines above set thisterm->inputparams to point to needed input
       parameters (or zero if none) and then increments the inputs pointer so
@@ -142,6 +149,7 @@ WtModel* WtModelInitialize (char *fnames, char *sonames, double **inputsp,
     m->workspace[i] = 0.0;
 
   *inputsp = inputs;
+  *iinputsp = iinputs;
   return m;
 }
 

@@ -30,7 +30,8 @@ void SAN_wrapper ( int *nedges,
                    int *nterms, char **funnames,
                    char **sonames, 
                    char **MHProposaltype, char **MHProposalpackage,
-                   double *inputs, double *tau, 
+                   double *inputs, int *iinputs,
+		   double *tau, 
                    double *sample,
 		   int *samplesize, int *nsteps,
                    int *newnetworktails, 
@@ -59,7 +60,7 @@ void SAN_wrapper ( int *nedges,
   
   directed_flag = *dflag;
 
-  m=ModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=ModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
 
   /* Form the network */
   nwp=NetworkInitialize((Vertex*)tails, (Vertex*)heads, nedges[0], 
@@ -67,7 +68,7 @@ void SAN_wrapper ( int *nedges,
   
   MHp=MHProposalInitialize(
 	  *MHProposaltype, *MHProposalpackage,
-	  inputs,
+	  inputs, iinputs,
 	  *fVerbose,
 	  nwp, attribs, maxout, maxin, minout, minin,
 	  *condAllDegExact, *attriblength);

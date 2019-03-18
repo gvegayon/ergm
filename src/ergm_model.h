@@ -28,7 +28,7 @@ typedef struct Modelstruct {
 			  termarray[i].nstats                    */
 } Model;
 
-Model* ModelInitialize (char *fnames, char *sonames, double **inputs,
+Model* ModelInitialize (char *fnames, char *sonames, double **inputs, int **iinputs,
 			int n_terms);
 
 void ModelDestroy(Model *m);

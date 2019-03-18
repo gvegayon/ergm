@@ -28,7 +28,7 @@ typedef struct WtModelstruct {
 			  termarray[i].nstats                    */
 } WtModel;
 
-WtModel* WtModelInitialize (char *fnames, char *sonames, double **inputs,
+WtModel* WtModelInitialize (char *fnames, char *sonames, double **inputs, int **iinputs,
 			int n_terms);
 
 void WtModelDestroy(WtModel *m);

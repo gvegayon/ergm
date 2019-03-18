@@ -18,6 +18,7 @@
 WtMHProposal *WtMHProposalInitialize(
 	     char *MHProposaltype, char *MHProposalpackage, 
 	       double *inputs,
+	       int *iinputs,
 	     int fVerbose,
 	     WtNetwork *nwp){
   WtMHProposal *MHp = Calloc(1, WtMHProposal);
@@ -50,6 +51,7 @@ WtMHProposal *WtMHProposalInitialize(
   }
 
   MHp->inputs=inputs;
+  MHp->iinputs=iinputs;
   
   MHp->discord=NULL;
 

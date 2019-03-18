@@ -80,12 +80,13 @@ typedef struct MHProposalstruct {
   DegreeBound *bd;
   Network **discord;
   double *inputs; /* may be used if needed, ignored if not. */
+  int *iinputs; /* may be used if needed, ignored if not. */
 } MHProposal;
 
 
 MHProposal *MHProposalInitialize(
 	     char *MHProposaltype, char *MHProposalpackage, 
-	     double *inputs,
+	     double *inputs, int *iinputs,
 	     int fVerbose,
 	     Network *nwp, 
 	     int *attribs, int *maxout, int *maxin, 
@@ -115,6 +116,7 @@ int CheckConstrainedTogglesValid(MHProposal *MHp, Network *nwp);
 
 /* Helper macros */
 #define MH_INPUTS MHp->inputs
+#define MH_IINPUTS MHp->iinputs
 
 #define Mtail (MHp->toggletail)
 #define Mhead (MHp->togglehead)

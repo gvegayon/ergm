@@ -16,10 +16,13 @@ typedef struct WtModelTermstruct {
   void (*d_func)(Edge, Vertex*, Vertex*, double*, struct WtModelTermstruct*, WtNetwork*);
   void (*s_func)(struct WtModelTermstruct*, WtNetwork*);
   double *attrib; /* Ptr to vector of covariates (if necessary; generally unused) */
+  int *iattrib; /* Ptr to vector of covariates (if necessary; generally unused) */
   int nstats;   /* Number of change statistics to be returned */
   double *dstats; /* ptr to change statistics returned */
   int ninputparams; /* Number of input parameters passed to function */
+  int niinputparams; /* Number of input parameters passed to function */
   double *inputparams; /* ptr to input parameters passed */
+  int *iinputparams; /* ptr to input parameters passed */
   double *statcache; /* vector of the same length as dstats */
 } WtModelTerm;
 

@@ -56,7 +56,7 @@ WtMCMCStatus WtGodfather(Edge n_changes, Vertex *tails, Vertex *heads, double *w
 *****************/
 void WtGodfather_wrapper(int *n_edges, int *tails, int *heads, double *weights,
 			 int *n_nodes, int *dflag, int *bipartite, 
-			 int *nterms, char **funnames, char **sonames, double *inputs,
+			 int *nterms, char **funnames, char **sonames, double *inputs, int *iinputs,
 			 int *total_changes, int *changetails, int *changeheads, double *changeweights,
 			 double *changestats, 
 			 int *maxedges,
@@ -74,7 +74,7 @@ void WtGodfather_wrapper(int *n_edges, int *tails, int *heads, double *weights,
 
   GetRNGstate();  /* R function enabling uniform RNG */
 
-  m=WtModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=WtModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
 
   /* Form the network */
   nwp=WtNetworkInitialize((Vertex*)tails, (Vertex*)heads, weights, n_edges[0], 

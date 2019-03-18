@@ -34,7 +34,7 @@
 void MPLE_wrapper(int *tails, int *heads, int *dnedges,
 		  double *wl,
 		  int *dn, int *dflag, int *bipartite, int *nterms, 
-		  char **funnames, char **sonames, double *inputs,  
+		  char **funnames, char **sonames, double *inputs, int *iinputs,
 		  int *responsevec, double *covmat,
 		  int *weightsvector,
 		  int *maxDyads, int *maxDyadTypes){
@@ -50,7 +50,7 @@ void MPLE_wrapper(int *tails, int *heads, int *dnedges,
   GetRNGstate(); /* Necessary for R random number generator */
   nwp=NetworkInitialize((Vertex*)tails, (Vertex*)heads, n_edges,
                           n_nodes, directed_flag, bip, 0, 0, NULL);
-  m=ModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=ModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
   
   MpleInit_hash_wl_RLE(responsevec, covmat, weightsvector, &wlm, *maxDyads, *maxDyadTypes, nwp, m); 
 

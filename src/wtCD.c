@@ -28,7 +28,7 @@ void WtCD_wrapper(int *nedges,
 		    int *nterms, char **funnames,
 		    char **sonames, 
 		    char **MHProposaltype, char **MHProposalpackage,
-		  double *inputs, double *theta0, int *samplesize, int *CDparams,
+		  double *inputs, int *iinputs, double *theta0, int *samplesize, int *CDparams,
 		  double *sample,
 		    int *fVerbose, 
 		    int *status){
@@ -47,7 +47,7 @@ void WtCD_wrapper(int *nedges,
   
   directed_flag = *dflag;
 
-  m=WtModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=WtModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
 
   /* Form the network */
   nwp=WtNetworkInitialize((Vertex*)tails, (Vertex*)heads, weights, nedges[0], 
@@ -55,7 +55,7 @@ void WtCD_wrapper(int *nedges,
 
   MHp=WtMHProposalInitialize(
 	    *MHProposaltype, *MHProposalpackage,
-	    inputs,
+	    inputs, iinputs,
 	    *fVerbose,
 	    nwp);
 

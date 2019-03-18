@@ -63,12 +63,14 @@ typedef struct WtMHProposalstruct {
   int status;
   WtNetwork **discord;
   double *inputs; /* may be used if needed, ignored if not. */
+  int *iinputs; /* may be used if needed, ignored if not. */
 } WtMHProposal;
 
 
 WtMHProposal * WtMHProposalInitialize(
 	     char *MHProposaltype, char *MHProposalpackage, 
 	       double *inputs,
+	       int *iinputs,
 	     int fVerbose,
 	     WtNetwork *nwp);
 
@@ -76,6 +78,7 @@ void WtMHProposalDestroy(WtMHProposal *MH);
 
 /* Helper macros */
 #define MH_INPUTS MHp->inputs
+#define MH_IINPUTS MHp->iinputs
 
 #define Mtail (MHp->toggletail)
 #define Mhead (MHp->togglehead)

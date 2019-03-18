@@ -42,7 +42,7 @@ void AllStatistics (
        int *nterms, 
 		   char **funnames, 
        char **sonames, 
-       double *inputs,  
+       double *inputs, int *iinputs,  
        double *covmat,
 		   int *weightsvector,
        int *maxNumDyadTypes) {
@@ -59,7 +59,7 @@ void AllStatistics (
   GetRNGstate(); /* Necessary for R random number generator */
   nwp=NetworkInitialize((Vertex*)tails, (Vertex*)heads, *dnedges,
 		       n_nodes, directed_flag, bip, 0, 0, NULL);
-  m=ModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=ModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
   
   /* Step 2:  Build nodelist1 and nodelist2, which together give all of the
   dyads in the network. */

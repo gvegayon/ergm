@@ -19,7 +19,7 @@
 void wt_network_stats_wrapper(int *tails, int *heads, double *weights, int *timings, int *time, int *lasttoggle, int *dnedges,
 			   int *dn, int *dflag,  int *bipartite,
 			   int *nterms, char **funnames,
-			   char **sonames, double *inputs,  double *stats)
+			   char **sonames, double *inputs, int *iinputs, double *stats)
 {
   int directed_flag;
   Vertex n_nodes;
@@ -38,7 +38,7 @@ void wt_network_stats_wrapper(int *tails, int *heads, double *weights, int *timi
 
   GetRNGstate();  /* R function enabling uniform RNG */
 
-  m=WtModelInitialize(*funnames, *sonames, &inputs, *nterms);
+  m=WtModelInitialize(*funnames, *sonames, &inputs, &iinputs, *nterms);
   nwp=WtNetworkInitialize(NULL, NULL, NULL, 0,
 			    n_nodes, directed_flag, bip, *timings?1:0, *timings?*time:0, *timings?lasttoggle:NULL);
 

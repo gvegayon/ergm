@@ -19,7 +19,7 @@
 void network_stats_wrapper(int *tails, int *heads, int *timings, int *time, int *lasttoggle, int *dnedges, 
 			   int *dn, int *dflag,  int *bipartite,
 			   int *nterms, char **funnames,
-			   char **sonames, double *inputs,  double *stats);
+			   char **sonames, double *inputs, int *iinputs, double *stats);
 void SummStats(Edge n_edges, Vertex *tails, Vertex *heads,
 	       Network *nwp, Model *m, double *stats);
 #endif
