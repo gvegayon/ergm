@@ -851,8 +851,8 @@ D_CHANGESTAT_FN(d_b2factor) {
     b2 = HEAD(i);
     s = IS_OUTEDGE(TAIL(i), b2) ? -1.0 : 1.0;
     for (j=0; j<(N_CHANGE_STATS); j++) {
-      factorval = (INPUT_PARAM[j]);
-      CHANGE_STAT[j] += ((INPUT_ATTRIB[b2-nb1-1] != factorval) ? 0.0 : s);
+      factorval = (IINPUT_PARAM[j]);
+      CHANGE_STAT[j] += ((IINPUT_ATTRIB[b2-nb1-1] != factorval) ? 0.0 : s);
     }
     TOGGLE_IF_MORE_TO_COME(i); /* Needed in case of multiple toggles */
   }
@@ -4066,11 +4066,11 @@ D_CHANGESTAT_FN(d_mix) {
  General mixing matrix (mm) implementation.
 *****************/
 D_CHANGESTAT_FN(d_mixmat){
-  unsigned int symm = ((int)INPUT_PARAM[0]) & 1;
-  unsigned int marg = ((int)INPUT_PARAM[0]) & 2;
-  double *tx = INPUT_PARAM;
-  double *hx = BIPARTITE? INPUT_PARAM : INPUT_PARAM + N_NODES;
-  double *cells = BIPARTITE? INPUT_PARAM + N_NODES + 1: INPUT_PARAM + N_NODES*2 + 1;
+  unsigned int symm = IINPUT_PARAM[0] & 1;
+  unsigned int marg = IINPUT_PARAM[0] & 2;
+  int *tx = IINPUT_PARAM;
+  int *hx = BIPARTITE? IINPUT_PARAM : IINPUT_PARAM + N_NODES;
+  int *cells = BIPARTITE? IINPUT_PARAM + N_NODES + 1: IINPUT_PARAM + N_NODES*2 + 1;
   
   int i;
   ZERO_ALL_CHANGESTATS(i);
@@ -4239,8 +4239,8 @@ D_CHANGESTAT_FN(d_nodefactor) {
     tail = TAIL(i);
     head = HEAD(i);
     s = IS_OUTEDGE(tail, head) ? -1.0 : 1.0;
-    int tailpos = INPUT_ATTRIB[tail-1];
-    int headpos = INPUT_ATTRIB[head-1];
+    int tailpos = IINPUT_ATTRIB[tail-1];
+    int headpos = IINPUT_ATTRIB[head-1];
     if (tailpos!=-1) CHANGE_STAT[tailpos] += s;
     if (headpos!=-1) CHANGE_STAT[headpos] += s;
     TOGGLE_IF_MORE_TO_COME(i);
@@ -4281,7 +4281,7 @@ D_CHANGESTAT_FN(d_nodeifactor) {
   FOR_EACH_TOGGLE(i) {
     head = HEAD(i);
     s = IS_OUTEDGE(TAIL(i), head) ? -1.0 : 1.0;
-    int headpos = INPUT_ATTRIB[head-1];
+    int headpos = IINPUT_ATTRIB[head-1];
     if (headpos!=-1) CHANGE_STAT[headpos] += s;
     TOGGLE_IF_MORE_TO_COME(i);
   }
@@ -4390,7 +4390,7 @@ D_CHANGESTAT_FN(d_nodeofactor) {
   FOR_EACH_TOGGLE(i) {
     tail = TAIL(i);
     s = IS_OUTEDGE(tail, HEAD(i)) ? -1.0 : 1.0;
-    int tailpos = INPUT_ATTRIB[tail-1];
+    int tailpos = IINPUT_ATTRIB[tail-1];
     if (tailpos!=-1) CHANGE_STAT[tailpos] += s;
     TOGGLE_IF_MORE_TO_COME(i);
   }

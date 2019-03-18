@@ -496,7 +496,7 @@ InitErgmTerm.b1factor<-function (nw, arglist, ...) {
 
   ### Construct the list to return
   inputs <- nodepos
-  list(name="nodeofactor", coef.names=paste("b1factor", attrname, paste(u), sep="."), inputs=inputs, dependence=FALSE, minval=0)
+  list(name="nodeofactor", coef.names=paste("b1factor", attrname, paste(u), sep="."), iinputs=inputs, dependence=FALSE, minval=0)
 }
 
 
@@ -811,7 +811,7 @@ InitErgmTerm.b2factor<-function (nw, arglist, ...) {
     inputs <- c(ui[-base], nodecov)
     attr(inputs, "ParamsBeforeCov") <- lu-length(base)
   }
-  list(name="b2factor", coef.names=coef.names, inputs=inputs, dependence=FALSE, minval=0)
+  list(name="b2factor", coef.names=coef.names, iinputs=inputs, dependence=FALSE, minval=0)
 }
 
 
@@ -2303,7 +2303,6 @@ InitErgmTerm.meandeg<-function(nw, arglist, ...) {
   list(name="meandeg", coef.names="meandeg", dependence=FALSE, minval=0, maxval=if(!is.bipartite(nw)) network.size(nw)-1, conflicts.constraints="edges")
 }
 
-
 ################################################################################
 InitErgmTerm.mm<-function (nw, arglist, ...) {
   ### Check the network and arguments to make sure they are appropriate.
@@ -2409,7 +2408,7 @@ InitErgmTerm.mm<-function (nw, arglist, ...) {
 
   list(name = "mixmat",
        coef.names = coef.names,
-       inputs = c(symm+marg*2, attrval$row$valcodes, attrval$col$valcodes, unlist(levels2codes)),
+       iinputs = c(symm+marg*2, attrval$row$valcodes, attrval$col$valcodes, unlist(levels2codes)),
        dependence = FALSE,
        minval = 0)
 }
@@ -2537,7 +2536,7 @@ InitErgmTerm.nodefactor<-function (nw, arglist, ...) {
   inputs <- nodepos
   list(name="nodefactor",                                        #required
        coef.names = paste("nodefactor", paste(a$attrname,collapse="."), u, sep="."), #required
-       inputs = inputs,
+       iinputs = inputs,
        dependence = FALSE, # So we don't use MCMC if not necessary
        minval = 0
        )
@@ -2590,7 +2589,7 @@ InitErgmTerm.nodeifactor<-function (nw, arglist, ...) {
   inputs <- nodepos
   list(name="nodeifactor",                                        #required
        coef.names = paste("nodeifactor", paste(a$attrname,collapse="."), u, sep="."), #required
-       inputs = inputs,
+       iinputs = inputs,
        dependence = FALSE, # So we don't use MCMC if not necessary
        minval = 0
        )
@@ -2761,7 +2760,7 @@ InitErgmTerm.nodeofactor<-function (nw, arglist, ...) {
   inputs <- nodepos
   list(name="nodeofactor",                                        #required
        coef.names = paste("nodeofactor", paste(a$attrname,collapse="."), u, sep="."), #required
-       inputs = inputs,
+       iinputs = inputs,
        dependence = FALSE, # So we don't use MCMC if not necessary
        minval = 0
        )
