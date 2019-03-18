@@ -139,9 +139,9 @@ WtD_CHANGESTAT_FN(d_b2factor_nonzero){
   
   EXEC_THROUGH_TOGGLES({
       s = (NEWWT!=0) - (OLDWT!=0);
-      headattr = INPUT_ATTRIB[HEAD-BIPARTITE-1];
+      headattr = IINPUT_ATTRIB[HEAD-BIPARTITE-1];
       for (j=0; j < N_CHANGE_STATS; j++){
-	factorval = INPUT_PARAM[j];
+	factorval = IINPUT_PARAM[j];
 	if (headattr == factorval) CHANGE_STAT[j] += s;
       }
     });
@@ -156,9 +156,9 @@ WtD_CHANGESTAT_FN(d_b2factor_sum){
   
   EXEC_THROUGH_TOGGLES({
     s = NEWWT - OLDWT;
-    headattr = INPUT_ATTRIB[HEAD-BIPARTITE-1];
+    headattr = IINPUT_ATTRIB[HEAD-BIPARTITE-1];
     for (j=0; j < N_CHANGE_STATS; j++){
-      factorval = INPUT_PARAM[j];
+      factorval = IINPUT_PARAM[j];
       if (headattr == factorval) CHANGE_STAT[j] += s;
     }
   });
@@ -665,8 +665,8 @@ WtD_CHANGESTAT_FN(d_nodeocov_sum){
 WtD_CHANGESTAT_FN(d_nodefactor_nonzero){ 
   EXEC_THROUGH_TOGGLES({
       double s = (NEWWT!=0) - (OLDWT!=0);
-      int tailpos = INPUT_ATTRIB[TAIL-1];
-      int headpos = INPUT_ATTRIB[HEAD-1];
+      int tailpos = IINPUT_ATTRIB[TAIL-1];
+      int headpos = IINPUT_ATTRIB[HEAD-1];
       if (tailpos != -1) CHANGE_STAT[tailpos] += s;
       if (headpos != -1) CHANGE_STAT[headpos] += s;
     });
@@ -678,8 +678,8 @@ WtD_CHANGESTAT_FN(d_nodefactor_nonzero){
 WtD_CHANGESTAT_FN(d_nodefactor_sum){ 
   EXEC_THROUGH_TOGGLES({
       double s = NEWWT - OLDWT;
-      int tailpos = INPUT_ATTRIB[TAIL-1];
-      int headpos = INPUT_ATTRIB[HEAD-1];
+      int tailpos = IINPUT_ATTRIB[TAIL-1];
+      int headpos = IINPUT_ATTRIB[HEAD-1];
       if (tailpos != -1) CHANGE_STAT[tailpos] += s;
       if (headpos != -1) CHANGE_STAT[headpos] += s;
     });
@@ -887,7 +887,7 @@ WtD_CHANGESTAT_FN(d_nodeisqrtcovar){
 WtD_CHANGESTAT_FN(d_nodeifactor_nonzero){ 
   EXEC_THROUGH_TOGGLES({
       double s = (NEWWT!=0) - (OLDWT!=0);
-      int headpos = INPUT_ATTRIB[HEAD-1];
+      int headpos = IINPUT_ATTRIB[HEAD-1];
       if (headpos != -1) CHANGE_STAT[headpos] += s;
     });
 }
@@ -898,7 +898,7 @@ WtD_CHANGESTAT_FN(d_nodeifactor_nonzero){
 WtD_CHANGESTAT_FN(d_nodeifactor_sum){ 
   EXEC_THROUGH_TOGGLES({
       double s = NEWWT - OLDWT;
-      int headpos = INPUT_ATTRIB[HEAD-1];
+      int headpos = IINPUT_ATTRIB[HEAD-1];
       if (headpos != -1) CHANGE_STAT[headpos] += s;
     });
 }
@@ -1037,7 +1037,7 @@ WtD_CHANGESTAT_FN(d_nodeosqrtcovar){
 WtD_CHANGESTAT_FN(d_nodeofactor_nonzero){ 
   EXEC_THROUGH_TOGGLES({
       double s = (NEWWT!=0) - (OLDWT!=0);
-      int tailpos = INPUT_ATTRIB[TAIL-1];
+      int tailpos = IINPUT_ATTRIB[TAIL-1];
       if (tailpos != -1) CHANGE_STAT[tailpos] += s;
     });
 }
@@ -1048,7 +1048,7 @@ WtD_CHANGESTAT_FN(d_nodeofactor_nonzero){
 WtD_CHANGESTAT_FN(d_nodeofactor_sum){ 
   EXEC_THROUGH_TOGGLES({
       double s = NEWWT - OLDWT;
-      int tailpos = INPUT_ATTRIB[TAIL-1];
+      int tailpos = IINPUT_ATTRIB[TAIL-1];
       if (tailpos != -1) CHANGE_STAT[tailpos] += s;
     });
 }
@@ -1362,11 +1362,11 @@ WtS_CHANGESTAT_FN(s_transitiveweights_threshold){
  General mixing matrix (mm) implementation.
 *****************/
 WtD_CHANGESTAT_FN(d_mixmat_sum){
-  unsigned int symm = ((int)INPUT_PARAM[0]) & 1;
-  unsigned int marg = ((int)INPUT_PARAM[0]) & 2;
-  double *tx = INPUT_PARAM;
-  double *hx = BIPARTITE? INPUT_PARAM : INPUT_PARAM + N_NODES;
-  double *cells = BIPARTITE? INPUT_PARAM + N_NODES + 1: INPUT_PARAM + N_NODES*2 + 1;
+  unsigned int symm = IINPUT_PARAM[0] & 1;
+  unsigned int marg = IINPUT_PARAM[0] & 2;
+  int *tx = IINPUT_PARAM;
+  int *hx = BIPARTITE? IINPUT_PARAM : IINPUT_PARAM + N_NODES;
+  int *cells = BIPARTITE? IINPUT_PARAM + N_NODES + 1: IINPUT_PARAM + N_NODES*2 + 1;
   
   EXEC_THROUGH_TOGGLES({
     unsigned int diag = tx[TAIL]==tx[HEAD] && hx[TAIL]==hx[HEAD];
@@ -1382,11 +1382,11 @@ WtD_CHANGESTAT_FN(d_mixmat_sum){
 }
 
 WtD_CHANGESTAT_FN(d_mixmat_nonzero){
-  unsigned int symm = ((int)INPUT_PARAM[0]) & 1;
-  unsigned int marg = ((int)INPUT_PARAM[0]) & 2;
-  double *tx = INPUT_PARAM;
-  double *hx = BIPARTITE? INPUT_PARAM : INPUT_PARAM + N_NODES;
-  double *cells = BIPARTITE? INPUT_PARAM + N_NODES + 1: INPUT_PARAM + N_NODES*2 + 1;
+  unsigned int symm = IINPUT_PARAM[0] & 1;
+  unsigned int marg = IINPUT_PARAM[0] & 2;
+  int *tx = IINPUT_PARAM;
+  int *hx = BIPARTITE? IINPUT_PARAM : IINPUT_PARAM + N_NODES;
+  int *cells = BIPARTITE? IINPUT_PARAM + N_NODES + 1: IINPUT_PARAM + N_NODES*2 + 1;
   
   EXEC_THROUGH_TOGGLES({
     unsigned int diag = tx[TAIL]==tx[HEAD] && hx[TAIL]==hx[HEAD];
