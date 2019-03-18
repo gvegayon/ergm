@@ -78,6 +78,7 @@ void WtMHProposalDestroy(WtMHProposal *MH);
 
 /* Helper macros */
 #define MH_INPUTS MHp->inputs
+#define MH_DINPUTS MHp->inputs
 #define MH_IINPUTS MHp->iinputs
 
 #define Mtail (MHp->toggletail)

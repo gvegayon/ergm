@@ -211,6 +211,10 @@
       \item{
 	Improvements to encapsulation of \code{Network} structures.
       }
+
+      \item{
+	\code{InitErgmTerm.*} and \code{InitErgmProposal.*} functions and their valued counterparts can now add \code{iinputs} element to their output lists, which is passed to C code as an integer vector and can be accessed by the change statistics using similar macros as numeric (double-precision) vectors with \code{I} prepented to \code{INPUT} (i.e., \code{INPUT} becomes \code{IINPUT}). For readability, \code{DINPUT} macros are also provided, equivalent to those with just \code{INPUT}. 
+      }
     }
   }
 
