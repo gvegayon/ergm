@@ -11,7 +11,7 @@
 #include "ergm_omp.h"
 
 #ifdef _OPENMP
-int ergm_omp_terms = 0;
+ergm_omp_terms = 0;
 
 SEXP set_ergm_omp_terms(SEXP x){
   x = PROTECT(coerceVector(x, INTSXP));
